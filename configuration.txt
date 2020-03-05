@@ -1,0 +1,168 @@
+1. Install Node
+2. Run "npm init" at the root of your project.
+
+3. Prettier --> style of code (formatting)
+	
+	**** For React Project ****
+
+	npm install -D prettier  --> -D means it's for development only.
+
+	// Add this in package.json
+	"scripts": {
+		"format": "prettier --write \"src/**/*.{js,jsx}\"",
+	},
+
+	**** For VS-CODE ****
+	-> Install "Prettier - Code formatter" Extension
+	-> Go to Setting and search for
+		*requireConfig then set "prettier.requireConfig" to "true"
+		*formatOnSave then set "editor.formatOnSave" to "true"
+	-> create a file ".prettierrc" and put {} in it	
+		***This lets everyone know this is a Prettier project that uses the default configuration
+
+4. Eslint
+
+	**** For React Project ****
+
+	npm install -D eslint eslint-config-prettier
+
+	// Configure its functionalities
+
+		There are dozens of present configs for ESLint and you're welcome to use any one of them. The Airbnb config is very popular, as is the standard config. I'm going to use a looser one for this class: eslint:recommended.
+
+	 ->  Let's create an ".eslintrc.json" file to start linting our project.
+	 	** Add this in file
+	 	************************************************************************
+
+	 	{
+		  "extends": ["eslint:recommended", "prettier", "prettier/react"],
+		  "plugins": [],
+		  "parserOptions": {
+		    "ecmaVersion": 2018,
+		    "sourceType": "module",
+		    "ecmaFeatures": {
+		      "jsx": true
+		    }
+		  },
+		  "env": {
+		    "es6": true,
+		    "browser": true,
+		    "node": true
+		  }
+		}
+
+		*************************************************************************
+
+		This is a combination of the recommended configs of ESLint and Prettier. This will lint for both normal JS stuff as well as JSX stuff. Run npx eslint script.js now and you should see we have a few errors. Run it again with the --fix flag and see it will fix some of it for us! Go fix the rest of your errors and come back. Let's go add this to our npm scripts (Package.jsom).
+
+		// Add this in package.json
+		"scripts": {
+			"format": "prettier --write \"src/**/*.{js,jsx}\"", (Already Done)
+			"lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+		},
+
+		-> Run "npm run lint"
+
+		**** For VS-CODE ****
+		-> Install "ESLint" Extension
+
+5. gitignore
+
+	If you haven't already, create a ".gitignore" at the root of your project to ignore the stuff we don't want to commit. Go ahead and put this in there:
+
+	***********************
+	node_modules
+	.cache/
+	dist/
+	.env
+	.DS_Store
+	coverage/
+	.vscode/
+	***********************
+
+6. Parcel (Same as webpack)
+desktop-b81frob@ad
+	Parcel is a relatively new bundler for JavaScript projects	
+
+	-> Install Parcel by doing npm install -D parcel-bundler.
+
+	-> Now inside of your package.json put:
+
+	**********************************
+	"scripts" {
+	  "dev": "parcel src/index.html"
+	}
+	**********************************
+
+	-> npm run dev
+
+7. Install React "npm install react react-dom"
+
+8. ESLint + React
+	
+	We need to give ESLint a hand to get it to recognize React and not yell about React not being used. Right now it thinks we're importing React and not using because it doesn't know what to do with React.
+
+	-> npm install -D babel-eslint eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
+
+	-> Update your .eslintrc.json to:
+
+	*************************************************************************
+
+	{
+	  "extends": [
+	    "eslint:recommended",
+	    "plugin:import/errors",
+	    "plugin:react/recommended",
+	    "plugin:jsx-a11y/recommended",
+	    "prettier",
+	    "prettier/react"
+	  ],
+	  "rules": {
+	    "react/prop-types": 0
+	  },
+	  "plugins": ["react", "import", "jsx-a11y"],
+	  "parserOptions": {
+	    "ecmaVersion": 2018,
+	    "sourceType": "module",
+	    "ecmaFeatures": {
+	      "jsx": true
+	    }
+	  },
+	  "env": {
+	    "es6": true,
+	    "browser": true,
+	    "node": true
+	  },
+	  "settings": {
+	    "react": {
+	      "version": "detect"
+	    }
+	  }
+	}
+
+	***************************************************************************
+
+9. Hooks
+
+	-> Let's add the ESLint rule.
+
+	   npm install -D "eslint-plugin-react-hooks".
+
+	   //Add this to ".eslintrc.json"
+	*******************************************************
+
+	{
+	  "rules": {
+	    …,
+	    "react-hooks/rules-of-hooks": ("error" or 2)
+	    "react-hooks/exhaustive-deps": ("warn" or 1)
+	  },
+	  "plugins": [
+	    …,
+	    "react-hooks"
+	    ],
+	}
+
+	********************************************************
+
+10. Install "React Dev tools Extension" for Browsers	
